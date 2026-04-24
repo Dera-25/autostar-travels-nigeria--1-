@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRightLeft, Clock, MapPin } from 'lucide-react';
 import EnuguImg from '/images/Enugu.jpg';
 import AbujaImg from '/images/Abuja.jpg';
-import LagosImg from '/images/Lagos2.jpg';
+import LagosImg from '/images/Lagos.jpg';
 
 const routes = [
   { from: 'Abuja', to: 'Enugu', time: '5:30 AM', price: 'Premium', image: EnuguImg },

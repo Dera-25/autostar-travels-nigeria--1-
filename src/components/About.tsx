@@ -16,14 +16,14 @@ export default function About() {
           >
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-premium">
               <img 
-                src="https://images.unsplash.com/photo-1606185208410-b2cc0b1d3d0f?auto=format&fit=crop&q=80&w=1000" 
+                src="/images/Parcel.jpg" 
                 alt="Autostar Logistics - Parcel Loading"
                 className="w-full h-[480px] object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
             
-            <div className="absolute -bottom-6 -right-6 bg-white p-8 rounded-xl shadow-premium border border-slate-100 max-w-[240px]">
+            <div className="absolute -bottom-6 -right-6 z-20 bg-white p-8 rounded-xl shadow-premium border border-slate-100 max-w-[240px]">
               <p className="text-primary font-display font-extrabold text-4xl mb-1 tracking-tighter">10+</p>
               <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">Years of Excellence</p>
             </div>
