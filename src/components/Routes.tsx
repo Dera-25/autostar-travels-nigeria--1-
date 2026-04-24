@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRightLeft, Clock, MapPin } from 'lucide-react';
+import EnuguImg from '/images/Enugu.jpg';
+import AbujaImg from '/images/Abuja.jpg';
+import LagosImg from '/images/Lagos2.jpg';
 
 const routes = [
-  { from: 'Abuja', to: 'Enugu', time: '5:30 AM', price: 'Premium', image: 'https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=800' },
-  { from: 'Lagos', to: 'Enugu', time: '5:30 AM', price: 'Premium', image: 'https://images.unsplash.com/photo-1541447271487-09612b3f49f7?auto=format&fit=crop&q=80&w=800' },
-  { from: 'Enugu', to: 'Abuja', time: '5:30 AM', price: 'Premium', image: 'https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=800' },
-  { from: 'Enugu', to: 'Lagos', time: '5:30 AM', price: 'Premium', image: 'https://images.unsplash.com/photo-1541447271487-09612b3f49f7?auto=format&fit=crop&q=80&w=800' }
+  { from: 'Abuja', to: 'Enugu', time: '5:30 AM', price: 'Premium', image: EnuguImg },
+  { from: 'Enugu', to: 'Abuja', time: '5:30 AM', price: 'Premium', image: AbujaImg },
+  { from: 'Lagos', to: 'Enugu', time: '5:30 AM', price: 'Premium', image: EnuguImg },
+  { from: 'Enugu', to: 'Lagos', time: '5:30 AM', price: 'Premium', image: LagosImg }
 ];
 
 export default function Routes() {
