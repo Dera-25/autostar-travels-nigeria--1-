@@ -41,7 +41,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white">Contact Info</h4>
             <ul className="space-y-3 text-sm text-white/50">
-              <li>Abakaliki Rd, GRA, Enugu, Enugu State.</li>
+              <li>No.58 Abakaliki Rd, Ogui, Enugu, Enugu State.</li>
               <li>+2348133291883</li>
               <li>support@autostar.ng</li>
             </ul>

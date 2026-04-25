@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, MessageCircle, Clock } from 'lucide-react';
 const branches = [
   {
     city: 'Enugu',
-    address: 'Abakaliki Rd, GRA, Enugu, Enugu State',
+    address: 'No.58 Abakaliki Rd, Ogui, Enugu, Enugu State',
     phone: '+2348133291883',
     email: 'enugu@autostar.ng',
     whatsapp: '+2348133291883'
@@ -19,7 +19,7 @@ const branches = [
   },
   {
     city: 'Lagos',
-    address: 'Jibowu Terminal, Yaba, Lagos State',
+    address: 'No.18 Ikorodu Rd, Jibowu, Yaba, Lagos State',
     phone: '+2348059548157',
     email: 'lagos@autostar.ng',
     whatsapp: '+2348059548157'

@@ -36,9 +36,9 @@ This project is a modern, responsive React landing page built to showcase Autost
 - **Daily Departures:** Fixed 5:30 AM schedules across all major routes
 - **Fleet:** Executive air-conditioned Toyota Sienna vehicles
 - **Branches:**
-  - **Enugu** — Abakaliki Rd, GRA, Enugu, Enugu State
+  - **Enugu** — No.58 Abakaliki Rd, Ogui, Enugu, Enugu State
   - **Abuja** — IDE Shopping Plaza, 484 Obafemi Awolowo Wy, District, Abuja, Federal Capital Territory
-  - **Lagos** — Jibowu Terminal, Yaba, Lagos State
+  - **Lagos** — No.18 Ikorodu Rd, Jibowu, Yaba, Lagos State
 - **Support Hours:** 7:00 AM — 9:00 PM daily
 
 ## Project Structure
