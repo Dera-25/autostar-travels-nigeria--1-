@@ -5,24 +5,24 @@ import { MapPin, Phone, Mail, MessageCircle, Clock } from 'lucide-react';
 const branches = [
   {
     city: 'Enugu',
-    address: 'No. 123 Ogui Road, Enugu State',
-    phone: '+234 800 123 4567',
+    address: 'Abakaliki Rd, GRA, Enugu, Enugu State',
+    phone: '+2348133291883',
     email: 'enugu@autostar.ng',
-    whatsapp: '+234 800 123 4567'
+    whatsapp: '+2348133291883'
   },
   {
     city: 'Abuja',
-    address: 'Utako Ultra Modern Market, Suite 45, Abuja FCT',
-    phone: '+234 800 234 5678',
+    address: 'IDE Shopping Plaza, 484 Obafemi Awolowo Wy, District, Abuja, Federal Capital Territory',
+    phone: '+2348132534835',
     email: 'abuja@autostar.ng',
-    whatsapp: '+234 800 234 5678'
+    whatsapp: '+2348132534835'
   },
   {
     city: 'Lagos',
     address: 'Jibowu Terminal, Yaba, Lagos State',
-    phone: '+234 800 345 6789',
+    phone: '+2348059548157',
     email: 'lagos@autostar.ng',
-    whatsapp: '+234 800 345 6789'
+    whatsapp: '+2348059548157'
   }
 ];
 
@@ -44,13 +44,13 @@ export default function Contact() {
             </div>
 
             <div className="space-y-4">
-              <a href="tel:+2348000000000" className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-premium transition-all group">
+              <a href="tel:+2348133291883" className="flex items-center gap-4 p-5 bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-premium transition-all group">
                 <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
                   <Phone size={20} />
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Call Us</p>
-                  <p className="text-base font-bold text-slate-900">+234 800 000 0000</p>
+                  <p className="text-base font-bold text-slate-900">+2348133291883</p>
                 </div>
               </a>
 
@@ -95,7 +95,8 @@ export default function Contact() {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-slate-100">
-                    <button className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold transition-all text-sm">
+                    <button  onClick={() => window.open(`https://wa.me/${branch.whatsapp.replace('+', '')}`, "_blank")}
+                      className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold transition-all text-sm">
                       <MessageCircle size={16} />
                       <span>Chat via WhatsApp</span>
                     </button>

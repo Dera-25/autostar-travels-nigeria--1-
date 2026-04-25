@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </a>
             <p className="text-white/50 text-sm leading-relaxed">
-              Nigeria's leading premium interstate transportation and parcel logistics company. 
+              Nigeria's premium interstate transportation and parcel logistics company. 
               Connecting Enugu, Abuja, and Lagos with executive comfort.
             </p>
           </div>
@@ -41,8 +41,8 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold uppercase tracking-widest mb-6 text-white">Contact Info</h4>
             <ul className="space-y-3 text-sm text-white/50">
-              <li>No. 123 Ogui Road, Enugu State.</li>
-              <li>+234 800 000 0000</li>
+              <li>Abakaliki Rd, GRA, Enugu, Enugu State.</li>
+              <li>+2348133291883</li>
               <li>support@autostar.ng</li>
             </ul>
           </div>

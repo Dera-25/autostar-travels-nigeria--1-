@@ -21,7 +21,7 @@ const steps = [
   {
     icon: <PlaneTakeoff size={32} />,
     title: 'Travel/Ship',
-    description: 'Arrive at our terminal by 8:30 AM and enjoy a premium, stress-free journey.'
+    description: 'Arrive at our office by 5:30 AM and enjoy a premium, stress-free journey.'
   }
 ];
 

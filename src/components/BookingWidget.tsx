@@ -105,7 +105,7 @@ export default function BookingWidget() {
     }
 
     const message = `Hello, I would like to book an Autostar ${service === 'people' ? 'trip' : 'parcel delivery'} ${details} from ${from} to ${to} on ${date}.`;
-    const whatsappUrl = `https://wa.me/2348000000000?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${from === 'Abuja' ? '2348132534835' : from === 'Lagos' ? '2348059548157' : '2348133291883'}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -154,9 +154,9 @@ export default function BookingWidget() {
             className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary/10 focus:border-primary outline-none transition-all appearance-none cursor-pointer text-sm"
           >
             <option value="">Select Origin</option>
-            <option value="Enugu">Enugu (Global Terminal)</option>
-            <option value="Abuja">Abuja (Central Park)</option>
-            <option value="Lagos">Lagos (Jibowu/Maza Maza)</option>
+            <option value="Enugu">Enugu</option>
+            <option value="Abuja">Abuja</option>
+            <option value="Lagos">Lagos</option>
           </select>
         </div>
 
@@ -174,16 +174,16 @@ export default function BookingWidget() {
             <option value="">Select Destination</option>
             {from === 'Enugu' ? (
               <>
-                <option value="Abuja">Abuja (Central Park)</option>
-                <option value="Lagos (Jibowu/Maza Maza)">Lagos (Jibowu/Maza Maza)</option>
+                <option value="Abuja">Abuja</option>
+                <option value="Lagos">Lagos</option>
               </>
             ) : from === 'Abuja' || from === 'Lagos' ? (
-              <option value="Enugu">Enugu (Global Terminal)</option>
+              <option value="Enugu">Enugu </option>
             ) : (
               <>
-                <option value="Enugu">Enugu (Global Terminal)</option>
-                <option value="Abuja">Abuja (Central Park)</option>
-                <option value="Lagos">Lagos (Jibowu/Maza Maza)</option>
+                <option value="Enugu">Enugu </option>
+                <option value="Abuja">Abuja </option>
+                <option value="Lagos">Lagos </option>
               </>
             )}
           </select>

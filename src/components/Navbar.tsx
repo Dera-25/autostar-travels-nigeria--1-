@@ -97,7 +97,7 @@ export default function Navbar() {
               <hr className="border-slate-100" />
               <div className="flex flex-col gap-4">
                 <a
-                  href="tel:+2348000000000"
+                  href="tel:+2348133291883"
                   className="flex items-center gap-3 text-slate-600 font-medium"
                 >
                   <Phone size={20} className="text-primary" />
