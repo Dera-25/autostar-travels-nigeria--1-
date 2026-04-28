@@ -35,7 +35,7 @@ export default function Services() {
       <div className="container mx-auto px-12">
         <div className="max-w-3xl mb-16 space-y-4">
           <h2 className="text-4xl font-display font-extrabold text-primary">
-            Premium Solutions for <br /> Modern Travelers
+            Reliable Transport Solutions for <br /> Modern Travelers
           </h2>
           <p className="text-slate-500 text-lg leading-relaxed">
             Whether you're traveling for business or shipping across states, 
