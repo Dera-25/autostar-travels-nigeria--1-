@@ -15,7 +15,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#', active: true },
+    { name: 'Home', href: '#home', active: true },
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Routes', href: '#routes' },
@@ -88,7 +88,18 @@ export default function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    const targetId = link.href.replace('#', '');
+                    const element = document.getElementById(targetId);
+
+                    setIsMobileMenuOpen(false);
+
+                    setTimeout(() => {
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                  }}
                   className="text-lg font-semibold text-slate-800 hover:text-primary transition-colors"
                 >
                   {link.name}
