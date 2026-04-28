@@ -24,11 +24,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[72px] flex items-center border-b ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled ? 'bg-white shadow-sm border-slate-100' : 'bg-white/90 backdrop-blur-sm border-transparent'
       }`}
     >
-      <div className="container mx-auto px-12 flex items-center justify-between">
+      <div className="container mx-auto px-12 h-[72px] flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-1 group">
           <span className="font-display font-extrabold text-2xl tracking-tighter text-primary">
