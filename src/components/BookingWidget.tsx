@@ -12,37 +12,20 @@ export default function BookingWidget() {
   const [date, setDate] = useState('');
   const [passengers, setPassengers] = useState('1');
   const [tripType, setTripType] = useState('');
-  const [smallParcels, setSmallParcels] = useState(0);
-  const [mediumParcels, setMediumParcels] = useState(0);
-  const [largeParcels, setLargeParcels] = useState(0);
-  const [xlParcels, setXlParcels] = useState(0);
-  const [xlWeight, setXlWeight] = useState<number | ''>('');
-  const [customWeight, setCustomWeight] = useState<number | ''>('');
-  const [customCount, setCustomCount] = useState(0);
+  const [parcels, setParcels] = useState<{ id: string; weight: number | ''; count: number }[]>([]);
 
-  const calculateWeightPrice = (w: number) => {
-    if (w <= 0) return 0;
-    if (w <= 1) return 5000;
-    return 5000 + Math.ceil(w - 1) * 500;
+  const addParcel = () => {
+    setParcels([...parcels, { id: Math.random().toString(36).substr(2, 9), weight: '', count: 1 }]);
   };
 
-  const getParcelTotal = () => {
-    let total = 0;
-    total += smallParcels * 6000;
-    total += mediumParcels * 8000;
-    total += largeParcels * 12500;
-    
-    if (xlParcels > 0 && typeof xlWeight === 'number') {
-      total += xlParcels * calculateWeightPrice(xlWeight);
-    }
-    
-    if (customCount > 0 && typeof customWeight === 'number') {
-      total += customCount * calculateWeightPrice(customWeight);
-    }
-    
-    return total;
+  const removeParcel = (id: string) => {
+    setParcels(parcels.filter(p => p.id !== id));
   };
 
+  const updateParcel =(id: string, updates: Partial<{ weight: number | ''; count: number }>) => {
+    setParcels(parcels.map(p => p.id === id ? { ...p, ...updates } : p));
+  };
+  
   // Logic: 
   // If From = Abuja → To auto-set/read-only = Enugu
   // If From = Lagos → To auto-set/read-only = Enugu
@@ -78,35 +61,17 @@ export default function BookingWidget() {
       const total = price * parseInt(passengers);
       details = `for ${passengers} ${parseInt(passengers) === 1 ? 'person' : 'people'} (${tripType} Trip, Total: ₦${total.toLocaleString()})`;
     } else {
-      const parts = [];
-      if (smallParcels > 0) parts.push(`${smallParcels} Small (0-3kg) @ ₦6k`);
-      if (mediumParcels > 0) parts.push(`${mediumParcels} Medium (4-10kg) @ ₦8k`);
-      if (largeParcels > 0) parts.push(`${largeParcels} Large (11-20kg) @ ₦12.5k`);
-      if (xlParcels > 0) {
-        if (!xlWeight || xlWeight < 20) {
-          alert('Please enter a weight of at least 20kg for Extra Large items');
-          return;
-        }
-        parts.push(`${xlParcels} Extra Large (${xlWeight}kg) @ ₦${calculateWeightPrice(xlWeight).toLocaleString()}`);
-      }
-      if (customCount > 0) {
-        if (!customWeight || customWeight <= 0) {
-          alert('Please enter a valid weight for custom items');
-          return;
-        }
-        parts.push(`${customCount} Custom (${customWeight}kg) @ ₦${calculateWeightPrice(customWeight).toLocaleString()}`);
-      }
+      const parts = parcels
+        .filter(p => p.weight !== '' || p.count > 0)
+        .map(p => `${p.count} parcel(s)${p.weight ? ` approx ${p.weight}kg each` : ''}`);
       
-      const total = getParcelTotal();
-      if (total === 0) {
-        alert('Please specify at least one parcel');
-        return;
+      if (parts.length >0){
+        details = `with ${parts.join(', ')}`;
       }
-      details = `with ${parts.join(', ')} (Total: ₦${total.toLocaleString()})`;
     }
 
     const message = `Hello,my name is ${name}. I would like to book an Autostar ${service === 'people' ? 'trip' : 'parcel delivery'} ${details} from ${from} to ${to} on ${date}.`;
-    const whatsappUrl = `https://wa.me/${from === 'Abuja' ? '2348132534835' : from === 'Lagos' ? '2348059548157' : '2348133291883'}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${ from === 'Lagos' ? '2348059548157': service==='parcel' && from ==='Abuja' ? '2349071309994': service === 'people' && from === 'Abuja' ? '2348132534835':service=== 'parcel'&& from==='Enugu'? '2349124767267' : '2348133291883'}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -310,100 +275,72 @@ export default function BookingWidget() {
               transition={{ duration: 0.2 }}
               className="space-y-4"
             >
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
-                <Package size={12} className="text-primary" />
-                Parcel Inventory & Weight
-              </label>
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                  <Package size={12} className="text-primary" />
+                  Parcel Details (Optional)
+                </label>
+                <button 
+                  onClick={addParcel}
+                  className="text-[10px] font-bold text-primary hover:text-primary-dark transition-colors border border-primary/20 rounded px-2 py-1 bg-primary/5"
+                >
+                  + Add Parcel
+                </button>
+              </div>
               
-              <div className="grid grid-cols-1 gap-2">
-                {[
-                  { id: 'small', label: 'Small (0-3kg)', price: '₦6,000', state: smallParcels, setter: setSmallParcels },
-                  { id: 'medium', label: 'Medium (4-10kg)', price: '₦8,000', state: mediumParcels, setter: setMediumParcels },
-                  { id: 'large', label: 'Large (10-20kg)', price: '₦12,500', state: largeParcels, setter: setLargeParcels },
-                  { id: 'xl', label: 'Extra Large (20kg+)', price: 'Based on weight', state: xlParcels, setter: setXlParcels },
-                ].map((item) => (
-                  <div key={item.id} className="space-y-2">
-                    <div className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-primary/30 transition-colors">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-bold text-slate-700">{item.label}</span>
-                        <span className="text-[10px] text-slate-400 font-medium">{item.price}</span>
+              <div className="space-y-3">
+                {parcels.map((parcel) => (
+                  <motion.div 
+                    key={parcel.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex gap-2 items-start"
+                  >
+                    <div className="flex-grow grid grid-cols-2 gap-2">
+                      <div className="relative">
+                        <input 
+                          type="number" 
+                          placeholder="Weight (kg)"
+                          value={parcel.weight}
+                          onChange={(e) => updateParcel(parcel.id, { weight: e.target.value === '' ? '' : Number(e.target.value) })}
+                          className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-primary pr-8"
+                        />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">KG</span>
                       </div>
                       <select
-                        value={item.state}
-                        onChange={(e) => item.setter(parseInt(e.target.value))}
-                        className="bg-white border border-slate-200 rounded px-2 py-1 text-xs font-bold text-primary outline-none focus:ring-1 focus:ring-primary/20"
+                        value={parcel.count}
+                        onChange={(e) => updateParcel(parcel.id, { count: parseInt(e.target.value) })}
+                        className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-primary font-bold"
                       >
-                        {[0, 1, 2, 3, 4, 5, 10].map(num => (
-                          <option key={num} value={num}>{num}</option>
+                        {[1, 2, 3, 4, 5, 10, 20].map(num => (
+                          <option key={num} value={num}>Qty: {num}</option>
                         ))}
                       </select>
                     </div>
-                    {item.id === 'xl' && xlParcels > 0 && (
-                      <motion.div 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="pl-4 border-l-2 border-accent/20 space-y-1.5"
-                      >
-                        <p className="text-[9px] font-bold text-accent uppercase">Enter Assumed Weight (Min 20kg)</p>
-                        <div className="flex items-center gap-2">
-                          <input 
-                            type="number" 
-                            placeholder="Weight in kg"
-                            value={xlWeight}
-                            onChange={(e) => setXlWeight(e.target.value === '' ? '' : Number(e.target.value))}
-                            className="w-full p-2 bg-white border border-slate-200 rounded text-xs outline-none focus:border-accent"
-                          />
-                          <span className="text-[10px] font-bold text-slate-400">KG</span>
-                        </div>
-                      </motion.div>
-                    )}
-                  </div>
+                    <button
+                      onClick={() => removeParcel(parcel.id)}
+                      className="p-2.5 text-slate-400 hover:text-red-500 transition-colors"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </motion.div>
                 ))}
+
+                {parcels.length === 0 &&(
+                  <p className="text-[10px] text-slate-400 text-center py-4 bg-slate-50/50 border border-dashed border-slate-200 rounded-xl">
+                    No parcel details added. You can still book and provide info via WhatsApp.
+                  </p>
+                )}
               </div>
 
-              {/* Custom Weight Section */}
-              <div className="pt-4 border-t border-slate-100">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Custom Weight Parcel</p>
-                <div className="flex gap-2">
-                  <div className="flex-grow">
-                    <input 
-                      type="number" 
-                      placeholder="Approx Weight (kg)"
-                      value={customWeight}
-                      onChange={(e) => setCustomWeight(e.target.value === '' ? '' : Number(e.target.value))}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-primary"
-                    />
-                  </div>
-                  <div className="w-24">
-                    <select
-                      value={customCount}
-                      onChange={(e) => setCustomCount(parseInt(e.target.value))}
-                      className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs outline-none focus:border-primary font-bold"
-                    >
-                      <option value="0">Qty: 0</option>
-                      {[1, 2, 3, 4, 5, 10].map(num => (
-                        <option key={num} value={num}>Qty: {num}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <p className="text-[9px] text-slate-400 mt-1 italic">
-                  * Pricing: ₦5k for 1st kg + ₦500 per additional kg
+              {/* Disclaimer*/}
+              <div className="p-3 bg-red-50 border border-red-100 rounded-xl">
+                <p className="text-[9px] text-red-600 leading-relaxed font-medium">
+                  <strong>NOTE:</strong> High-value or sensitive items (phones, passports, documents, cheques) 
+                  are ineligible for standard weight pricing. Please contact us via WhatsApp for approval 
+                  and specialized pricing before sending.
                 </p>
               </div>
-
-              {getParcelTotal() > 0 && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  className="mt-2 p-3 bg-accent/5 rounded-xl border border-accent/10 flex justify-between items-center"
-                >
-                  <p className="text-[10px] font-bold text-slate-500 uppercase">Estimated Shipping Total</p>
-                  <p className="text-lg font-display font-extrabold text-accent">
-                    ₦{getParcelTotal().toLocaleString()}
-                  </p>
-                </motion.div>
-              )}
             </motion.div>
           )}
         </AnimatePresence>
