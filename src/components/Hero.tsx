@@ -16,9 +16,11 @@ export default function Hero() {
             className="space-y-8"
           >
             <h1 className="text-[52px] font-display font-extrabold leading-[1.1] text-primary">
-              Premium Interstate Travel <br />
-              You Can Trust
+              Autostar Travels
             </h1>
+            <p className="text-xl font-bold text-accent">
+              Premium Interstate Travel that you can trust
+            </p>
             
             <p className="text-lg text-slate-500 max-w-[480px] leading-relaxed">
               Experience safe, reliable, and executive daily transportation connecting 
