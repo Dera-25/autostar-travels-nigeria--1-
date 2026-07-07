@@ -44,6 +44,17 @@ export default function BookingWidget() {
     d.setDate(d.getDate() + 1);
     return d.toISOString().split('T')[0];
   });
+  const getPrice = () => {
+    if (from === 'Enugu' && to === 'Abuja') {
+      return tripType === 'Executive' ? 60000 : 55000;
+    }
+    if (from === 'Enugu' && to === 'Lagos') {
+      return tripType === 'Executive' ? 65000 : 60000;
+    }
+    return tripType === 'Executive' ? 70000 : 60000;
+  };
+
+const price = getPrice();
 
   const handleBook = () => {
     if (!from || !to || !date) {
@@ -57,7 +68,12 @@ export default function BookingWidget() {
         alert('Please select a trip type');
         return;
       }
-      const price = tripType === 'Executive' ? 70000 : 60000;
+      // let price = tripType === 'Executive' ? 70000 : 60000;
+      // if(from === 'Enugu' && to === 'Abuja'){
+      //   price = tripType === 'Executive' ? 60000 : 55000;
+      // }else if(from === 'Enugu' && to === 'Lagos'){
+      //   price = tripType === 'Executive' ? 65000 : 60000;
+      // }
       const total = price * parseInt(passengers);
       details = `for ${passengers} ${parseInt(passengers) === 1 ? 'person' : 'people'} (${tripType} Trip, Total: ₦${total.toLocaleString()})`;
     } else {
@@ -255,12 +271,12 @@ export default function BookingWidget() {
                   <div>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">Total Fair</p>
                     <p className="text-xl font-display font-extrabold text-primary">
-                      ₦{( (tripType === 'Executive' ? 70000 : 60000) * parseInt(passengers) ).toLocaleString()}
+                      ₦{( (price) * parseInt(passengers) ).toLocaleString()}
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-[9px] font-bold text-slate-500 bg-white px-2 py-1 rounded border border-slate-100 italic">
-                      ₦{tripType === 'Executive' ? '70k' : '60k'} per individual
+                      ₦{(price / 1000)}k per individual
                     </p>
                   </div>
                 </motion.div>
