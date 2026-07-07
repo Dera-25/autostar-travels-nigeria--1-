@@ -16,7 +16,7 @@ export default function Hero() {
             className="space-y-8"
           >
             <h1 className="text-[52px] font-display font-extrabold leading-[1.1] text-primary">
-              Autostar Travels
+              Autostar Express
             </h1>
             <p className="text-xl font-bold text-accent">
               Premium Interstate Travel that you can trust
