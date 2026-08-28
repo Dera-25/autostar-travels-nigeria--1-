@@ -1,46 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import BookingWidget from './BookingWidget';
-import { ChevronRight, ShieldCheck, Zap } from 'lucide-react';
+import NoticeBanner from './NoticeBanner';
+import FullFlyerModal from './FullFlyerModal';
 
 export default function Hero() {
+  const [isFlyerOpen, setIsFlyerOpen] = useState(false);
+
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center pt-[72px] overflow-hidden hero-gradient">
-      <div className="container mx-auto px-12 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+    <section id="home" className="relative min-h-screen flex flex-col justify-between pt-[84px] overflow-hidden hero-gradient">
+      {/* Notice Banner - Slim Top Bar under Navbar */}
+      <NoticeBanner onOpenFlyer={() => setIsFlyerOpen(true)} />
+
+      {/* Full Flyer Modal */}
+      <FullFlyerModal isOpen={isFlyerOpen} onClose={() => setIsFlyerOpen(false)} />
+
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12 py-4 sm:py-8 flex-grow flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-12 items-center w-full">
           {/* Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
-            <h1 className="text-[52px] font-display font-extrabold leading-[1.1] text-primary">
-              Autostar Express
-            </h1>
-            <p className="text-xl font-bold text-accent">
-              Premium Interstate Travel that you can trust
-            </p>
+            {/* Alternative to Air Travels Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF2FC] text-[#002855] text-xs sm:text-sm font-bold shadow-sm">
+              <Star size={14} className="text-[#D0021B] fill-[#D0021B]" />
+              <span>Alternative to Air Travels</span>
+            </div>
+
+            <div>
+              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-display font-black leading-[1.1] text-primary tracking-tight">
+                <span>Autostar </span>
+                <span className="text-accent">Express</span>
+              </h1>
+              <p className="text-lg sm:text-xl font-bold text-slate-700 mt-2">
+                Safe. Reliable. Comfortable.
+              </p>
+
+              {/* Decorative Red Star Line Divider */}
+              <div className="flex items-center gap-2.5 max-w-[180px] mt-2.5">
+                <div className="flex-1 h-[2px] bg-red-400" />
+                <Star size={14} className="text-accent fill-accent" />
+                <div className="flex-1 h-[2px] bg-red-400" />
+              </div>
+            </div>
             
-            <p className="text-lg text-slate-500 max-w-[480px] leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-500 max-w-[480px] leading-relaxed">
               Experience safe, reliable, and executive daily transportation connecting 
-              Enugu, Abuja, and Lagos with 5-star comfort.
+              <span className="font-semibold text-slate-800"> Enugu, Abuja, and Lagos</span> with 5-star comfort.
             </p>
 
             <motion.div 
-              initial={{ opacity: 0, scale: 0.98 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="relative mt-8 group"
+              className="relative mt-6 group"
             >
-              <div className="relative z-10 w-full h-[320px] bg-white rounded-[24px] overflow-hidden shadow-premium border border-slate-200">
+              <div className="relative z-10 w-full h-[260px] sm:h-[300px] bg-white rounded-[24px] overflow-hidden shadow-premium border border-slate-200">
                 <img 
                   src="/images/sienna.png" 
-                  alt="Autostar Premium Sienna Fleet"
+                  alt="Autostar Premium Sienna Fleet" 
                   className="w-full h-full object-cover rounded-[24px] transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              {/* Decorative background element behind image */}
+              {/* Decorative background element */}
               <div className="absolute -inset-2 bg-gradient-to-tr from-accent/10 to-transparent rounded-[32px] -z-10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           </motion.div>
@@ -73,13 +98,13 @@ function FeaturesBar() {
   ];
 
   return (
-    <div className="bg-primary text-white py-10">
-      <div className="container mx-auto px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="bg-primary text-white py-8 sm:py-10">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {features.map((f, i) => (
             <div key={i} className={`flex flex-col gap-1 ${i !== features.length - 1 ? 'lg:border-r lg:border-white/10' : ''} lg:pr-8`}>
               <div className="flex items-center gap-2 font-bold text-sm">
-                <div className="w-2 h-2 rounded-full bg-accent" />
+                <Star size={14} className="text-accent fill-accent" />
                 {f.title}
               </div>
               <p className="text-xs text-white/70 leading-relaxed">{f.desc}</p>
@@ -90,7 +115,6 @@ function FeaturesBar() {
     </div>
   );
 }
-
 
 function Star({ size, fill, className }: { size: number, fill?: string, className?: string }) {
   return (
